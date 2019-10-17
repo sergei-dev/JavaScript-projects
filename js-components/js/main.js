@@ -40,12 +40,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const createId = () => {
-        if (todoItems != undefined) {
-            todoItems.forEach((item, index) => {
-                console.log(index);
-                todosEl[index].setAttribute('id', index);
-            })
-        }
+        todoItems = todoItems || [];
+        todoItems.forEach((item, index) => {
+            console.log(index);
+            todosEl[index].setAttribute('id', index);
+        })
+
 
     }
 
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         clearStorage();
         saveStorage();
-        getStorageTodos();
+        // getStorageTodos();
         createId();
         console.log(todoItems);
     }
@@ -98,11 +98,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 const doneBtn = document.createElement('button');
                 doneBtn.classList.add('fa', 'todo__done', 'js-todo-done');
 
-                todoItem.appendChild(todoText);
                 todoItem.appendChild(todoDate);
                 todoItem.appendChild(todoBtnWrap);
                 todoBtnWrap.appendChild(delBtn);
                 todoBtnWrap.appendChild(doneBtn);
+                todoItem.appendChild(todoText);
 
                 delBtn.addEventListener('click', (event) => {
                     todoDelete(event.currentTarget, todoItem);
@@ -166,13 +166,14 @@ document.addEventListener('DOMContentLoaded', function () {
             todoObj = new Todo(index, item, date);
         });
 
-        if (todoArray != undefined) {
-            todoArray.push(todoObj);
-        }
+        todoItems = todoItems || [];
 
-        console.log(todoArray);
+        todoItems.push(todoObj);
 
-        todoCreate(todoItems);
+
+        console.log(todoObj);
+
+        todoCreate(todoArray);
     }
     // functions 
 
@@ -202,6 +203,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(todoItems);
 
                 todos.push(inputVal);
+
+                console.log(todos);
 
 
                 todoInit(todoItems);
