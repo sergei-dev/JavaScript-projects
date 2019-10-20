@@ -40,15 +40,27 @@ html, body {
 	justify-content: center;
 }
 
+.todo__list-wrap {
+	padding: 20px;
+	width: 100%;
+	max-width: 600px;
+	margin: auto;
+
+	background: #fff;
+	box-shadow: 1px 1px 5px #ccc;
+}
+
 .todo__head-title {
 	display: block;
 
-	font-size: 35px;
+	font-size: 24px;
 	color: #ffffff;
+	font-weight: 500;
 }
 
 .todo__create-wrap {
 	padding: 50px;
+	padding-top: 25px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -69,9 +81,8 @@ html, body {
 	padding: 0 20px;
 	height: 50px;
 
-
-	border: 1px solid #ccc;
-	box-shadow: -1px 0px 8px 0px #ccc;
+	border: 0;
+	border-bottom: 1px solid #ccc;
 	-webkit-appearance: none;
 	appearance: none;
 	transition: all .3s ease-in-out;
@@ -90,7 +101,7 @@ html, body {
 
 .todo__input:focus {
 	outline: none;
-	box-shadow: -1px 0px 17px 4px #ccc;
+	border-color: #ef8f2d; 
 }
 
 .todo__add-btn {
@@ -99,7 +110,7 @@ html, body {
 
 	text-transform: uppercase;
 	color: #ffffff;
-	font-size: 16px;
+	font-size: 14px;
 
 	background: #ef8f2d;
 	cursor: pointer;
@@ -120,11 +131,9 @@ html, body {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 15px;
-	padding: 25px;
-	padding-right: 40px;
-
-	box-shadow: 1px 1px 5px #ccc;
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid #000;
 }
 
 .todo__text::before {
@@ -149,12 +158,13 @@ html, body {
 }	
 
 .todo__text {
-	margin-right: 20px;
 	position: relative;
 	font-size: 16px;
 	font-weight: 500;
 	color: #000000;
 	line-height: 1.2em;
+	text-align: right;
+	font-weight: 300;
 }
 
 .todo__del {
@@ -198,6 +208,7 @@ html, body {
 .todo__btn-wrap {
 	display: flex;
 	flex-direction: column;
+	margin-right: 20px;
 }
 
 .todo__done {
@@ -225,4 +236,14 @@ html, body {
 
 .todo__done:hover::before {
 	color: #ef8f2d;
+}
+
+.todo__date {
+	position: absolute;
+	bottom: 5px;
+	right: 0;
+
+	display: block;
+	
+	font-size: 10px;
 }

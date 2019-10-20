@@ -40,28 +40,41 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const createId = () => {
-        if (todoItems != undefined) {
-            todoItems.forEach((item, index) => {
-                console.log(index);
-                todosEl[index].setAttribute('id', index);
-            })
-        }
+        todoItems = todoItems || [];
+        todoItems.forEach((item, index) => {
+            console.log(index);
+            todosEl[index].setAttribute('id', index);
+        })
 
+
+    }
+
+    const deleteId = () => {
+        for(let el of todosEl) {
+            el.removeAttribute('id');
+        }
+    }
+
+    const clearTodos = () => {
+        for(let el of todosEl) {
+            el.remove();
+        }
     }
 
     const todoDelete = (el, wrap) => {
         let elWrapChild = el.parentElement;
         let elWrap = elWrapChild.parentElement;
+        let todoText = elWrap.querySelector('.todo__text').innerHTML;
+        // console.log(todoText);
         let btnWrapId = elWrap.id;
-        elWrap.remove();
 
-        if (todoItems.length > 0) {
-            todoItems = todoItems.filter((item, index, array) => {
-                return index != btnWrapId;
-            });
-        }
+        todoItems = todoItems.filter((item, index, array) => {
+            return index != btnWrapId;
+        });
 
+        clearTodos();
         clearStorage();
+        deleteId();
         saveStorage();
         getStorageTodos();
         createId();
@@ -70,16 +83,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const todoDone = (el, wrap) => {
         let elWrap = el.closest('.todo__item');
-        elWrap.classList.add('todo__item--done');
+        elWrap.classList.toggle('todo__item--done');
+        let btnWrapId = elWrap.id;
+        console.log(todoItems[btnWrapId]);
+        if( todoItems[btnWrapId].done === false ) {
+            todoItems[btnWrapId].done = true;
+        }
+
+       else if( todoItems[btnWrapId].done === true ) {
+            todoItems[btnWrapId].done = false;
+        }
+        console.log(todoItems);
+        saveStorage();    
+        
     }
 
     const todoCreate = (todoArray, allItems = false) => {
         if (todoArray != undefined) {
             todoArray.forEach((el, index) => {
                 // create todo item
-                console.log(el.value);
+                // console.log(el.value);
                 todoItem = document.createElement('div');
                 todoItem.classList.add('todo__item');
+                if ( el.done === false ) {
+                    todoItem.classList.remove('todo__item--done');
+                }   
+
+                else if ( el.done === true ) {
+                    todoItem.classList.add('todo__item--done');
+                }
 
                 const todoText = document.createElement('div');
                 todoText.classList.add('todo__text');
@@ -98,11 +130,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 const doneBtn = document.createElement('button');
                 doneBtn.classList.add('fa', 'todo__done', 'js-todo-done');
 
-                todoItem.appendChild(todoText);
                 todoItem.appendChild(todoDate);
                 todoItem.appendChild(todoBtnWrap);
                 todoBtnWrap.appendChild(delBtn);
                 todoBtnWrap.appendChild(doneBtn);
+                todoItem.appendChild(todoText);
 
                 delBtn.addEventListener('click', (event) => {
                     todoDelete(event.currentTarget, todoItem);
@@ -152,10 +184,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    function Todo(index, value, date) {
+    function Todo(index, value, date, done) {
         this.index = index;
         this.value = value;
         this.date = date;
+        this.done = done;
     }
 
     let todoObj;
@@ -163,16 +196,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const todoInit = (todoArray) => {
         let date = new Date().toLocaleString();
         todos.forEach((item, index) => {
-            todoObj = new Todo(index, item, date);
+            todoObj = new Todo(index, item, date, false);
         });
+        
 
-        if (todoArray != undefined) {
-            todoArray.push(todoObj);
-        }
+        todoItems = todoItems || [];
 
-        console.log(todoArray);
+        todoItems.push(todoObj);
 
-        todoCreate(todoItems);
+        // console.log(todoObj);
+
+        todoCreate(todoArray);
     }
     // functions 
 
@@ -199,9 +233,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (inputVal != '') {
                 hideError();
-                console.log(todoItems);
+                // console.log(todoItems);
 
                 todos.push(inputVal);
+
+                // console.log(todos);
 
 
                 todoInit(todoItems);
