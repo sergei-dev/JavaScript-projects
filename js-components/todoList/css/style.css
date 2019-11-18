@@ -1,0 +1,249 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+
+	font-size: 16px;
+	line-height: 1.2em;
+	letter-spacing: 0.01em;
+	font-family: 'Arial', sans-serif;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+.container {
+	max-width: 1200px;
+	margin: auto;
+	padding: 0 16px;
+}
+
+.todo {
+	width: 100%;
+	min-height: 100vh;
+	height: 100%;
+}
+
+.todo__header {
+	width: 100%;
+	padding: 20px 0;
+
+	background: #ef8f2d;
+	box-shadow: 1px 1px 5px #ccc;
+}
+
+.todo__header .container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.todo__list-wrap {
+	padding: 20px;
+	width: 100%;
+	max-width: 600px;
+	margin: auto;
+
+	background: #fff;
+	box-shadow: 1px 1px 5px #ccc;
+}
+
+.todo__head-title {
+	display: block;
+
+	font-size: 24px;
+	color: #ffffff;
+	font-weight: 500;
+}
+
+.todo__create-wrap {
+	padding: 50px;
+	padding-top: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.todo__label {
+	position: relative;
+
+	width: 100%;
+	display: block;
+	max-width: 300px;
+	margin-bottom: 30px;
+}
+
+.todo__input {
+	width: 100%;
+	padding: 0 20px;
+	height: 50px;
+
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	-webkit-appearance: none;
+	appearance: none;
+	transition: all .3s ease-in-out;
+}
+
+.todo__error {
+	position: absolute;
+	left: 0;
+	top: calc(100% + 5px);
+
+	display: inline-block;
+
+	font-size: 12px;
+	color: red;
+}
+
+.todo__input:focus {
+	outline: none;
+	border-color: #ef8f2d; 
+}
+
+.todo__add-btn {
+	display: inline-block;
+	padding: 10px 20px;
+
+	text-transform: uppercase;
+	color: #ffffff;
+	font-size: 14px;
+
+	background: #ef8f2d;
+	cursor: pointer;
+	border: 0;
+
+	transition: all .3s ease-in-out;
+}
+
+.todo__add-btn:hover {
+	background: #8d4803;
+}
+
+
+.todo__item {
+	position: relative;
+
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid #000;
+}
+
+.todo__text::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 0;
+
+	width: 0;
+	height: 2px;
+	background: #000;
+
+	transition: all .3s;
+}
+
+.todo__item--done .todo__text::before {
+	width: 100%;
+}
+
+.todo__item:last-child {
+	margin-bottom: 0;
+}	
+
+.todo__text {
+	position: relative;
+	font-size: 16px;
+	font-weight: 500;
+	color: #000000;
+	line-height: 1.2em;
+	text-align: right;
+	font-weight: 300;
+}
+
+.todo__del {
+	position: relative;
+
+	display: block;
+	margin-bottom: 10px;
+	width: 15px;
+	height: 15px;
+
+	cursor: pointer;
+	border: 0;
+	background: none;
+}
+
+.todo__del::before,
+.todo__del::after {
+	content: '';
+	position: absolute;
+
+	display: block;
+	width: 100%;
+	height: 2px;
+
+	background: #000;
+	transition: all .3s;
+}
+
+.todo__del:hover::before,
+.todo__del:hover::after {
+	background: #ef8f2d;
+}
+
+.todo__del::before {
+	transform: rotate(-45deg);
+}
+.todo__del::after {
+	transform: rotate(45deg);
+}
+
+.todo__btn-wrap {
+	display: flex;
+	flex-direction: column;
+	margin-right: 20px;
+}
+
+.todo__done {
+	position: relative;
+	display: block;
+	width: 15px;
+	height: 15px;
+
+	cursor: pointer;
+	border: 0;
+	background: none;
+}
+
+.todo__done::before {
+	content: '\f05d';
+	position: absolute;
+	left: 0;
+	top: 0;
+
+	display: block;
+
+	transition: all .3s;
+}
+
+
+.todo__done:hover::before {
+	color: #ef8f2d;
+}
+
+.todo__date {
+	position: absolute;
+	bottom: 5px;
+	right: 0;
+
+	display: block;
+	
+	font-size: 10px;
+}
